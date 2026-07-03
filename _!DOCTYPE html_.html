@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Blog de Saúde | Gabi Alves</title>
+    <style>
+        /* Configurações Gerais e Cores (Verde e Azul) */
+        :root {
+            --verde-principal: #2e7d32;
+            --verde-claro: #e8f5e9;
+            --azul-principal: #0288d1;
+            --azul-claro: #e1f5fe;
+            --texto-escuro: #263238;
+            --branco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f9f7;
+            color: var(--texto-escuro);
+            line-height: 1.6;
+        }
+
+        /* Animação de Entrada */
+        @keyframes softFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(135deg, var(--verde-principal), var(--azul-principal));
+            color: var(--branco);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+
+        header p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .autor {
+            font-style: italic;
+            color: #78909c;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Cards do Blog com Movimento (Hover) */
+        .card {
+            background-color: var(--branco);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: softFade 0.6s ease-out;
+            border-left: 5px solid var(--verde-principal);
+            overflow: hidden;
+        }
+
+        .card:nth-child(even) {
+            border-left-color: var(--azul-principal);
+        }
+
+        /* Efeito de movimento ao passar o mouse */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card h2.verde { color: var(--verde-principal); }
+        .card h2.azul { color: var(--azul-principal); }
+
+        .card ul {
+            list-style-position: inside;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+        }
+
+        /* Estilização de Imagens nos Cards */
+        .card-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Seção Interativa: Rastreador de Hábitos */
+        .interativo {
+            background: linear-gradient(135deg, var(--verde-claro), var(--azul-claro));
+            border: 2px dashed var(--azul-principal);
+            border-left: none !important;
+        }
+
+        .habit-list {
+            list-style: none !important;
+            margin-top: 15px;
+        }
+
+        .habit-item {
+            background: var(--branco);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .habit-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .habit-item.done {
+            background-color: #c8e6c9;
+            text-decoration: line-through;
+            color: #388e3c;
+            font-weight: bold;
+        }
+
+        .habit-item::before {
+            content: "⬜ ";
+            margin-right: 10px;
+            font-weight: normal;
+        }
+
+        .habit-item.done::before {
+            content: "✅ ";
+        }
+
+        /* Estilos do Widget de Calculadora */
+        .calc-container {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .calc-input {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 150px;
+            outline: none;
+        }
+
+        .calc-input:focus {
+            border-color: var(--azul-principal);
+        }
+
+        .calc-btn {
+            padding: 10px 20px;
+            background-color: var(--verde-principal);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .calc-btn:hover {
+            background-color: #1b5e20;
+        }
+
+        .calc-resultado {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--verde-principal);
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #78909c;
+            margin-top: 50px;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Como ter uma saúde pessoal boa?</h1>
+        <p>Ter uma boa saúde pessoal exige um equilíbrio entre corpo e mente. Isso é alcançado através de pilares fundamentais: alimentação balanceada rica em nutrientes, hidratação adequada, exercícios físicos regulares, sono de qualidade e prevenção médica.</p>
+    </header>
+
+    <main>
+        <p class="autor">Postado por: <strong>Gabi Alves</strong></p>
+
+        <section class="card">
+            <h2 class="verde">1. Cuidados Preventivos (Check-ups e Vacinas)</h2>
+            <p>A prevenção é o pilar da saúde. Para manter seus exames e vacinas em dia em Curitiba, utilize o Portal da Secretaria Municipal da Saúde para acessar a rede de Unidades Básicas de Saúde, serviços especializados e programas como o Mãe Curitibana.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="azul">2. Higiene Pessoal e Corporal</h2>
+            <p>Práticas simples de higiene diária ajudam a prevenir a proliferação de bactérias, vírus e fungos, evitando uma série de doenças. Isso inclui:</p>
+            <ul>
+                <li>Lavagem frequente das mãos.</li>
+                <li>Escovação dentária adequada e banhos diários.</li>
+                <li>Cuidados atenciosos com as unhas, cabelos e higiene íntima.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Alimentação Saudável">
+            <h2 class="verde">3. Nutrição e Hidratação</h2>
+            <p>O que você coloca no seu corpo determina como ele funciona. Siga estas regras de ouro:</p>
+            <ul>
+                <li><strong>Alimentação colorida:</strong> Consuma porções diárias de frutas, verduras e legumes variados.</li>
+                <li><strong>Redução de ultraprocessados:</strong> Evite alimentos ricos em sódio, açúcar refinado e gorduras trans.</li>
+                <li><strong>Água constante:</strong> Beba cerca de 2 litros de água por dia para o bom funcionamento dos rims.</li>
+                <li><strong>Frequência alimentar:</strong> Mantenha horários regulares para as refeições e evite pular o café da manhã.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80" alt="Atividade Física">
+            <h2 class="azul">4. Atividade Física Regulada</h2>
+            <p>Movimentar-se é essencial para a saúde cardiovascular e mental:</p>
+            <ul>
+                <li><strong>Consistência semanal:</strong> Pratique pelo menos 150 minutos de exercícios moderados por semana.</li>
+                <li><strong>Variedade de stimuli:</strong> Combine treinos aeróbicos (caminhada, corrida) com fortalecimento muscular.</li>
+                <li><strong>Combate ao sedentarismo:</strong> Faça pequenas pausas para caminhar ou alongar durante o dia de trabalho ou estudos.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2 class="verde">5. Saúde Mental e Sono de Qualidade</h2>
+            <p>O descanso e a mente sã são tão importantes quanto os exercícios:</p>
+            <ul>
+                <li><strong>Higiene do sono:</strong> Desligue telas (celular e TV) 30 minutos antes de dormir para garantir de 7 a 8 horas de sono profundo.</li>
+                <li><strong>Gerenciamento de estresse:</strong> Dedique um tempo do seu dia para hobbies, leitura ou meditação.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=800&q=80" alt="Uso de telas e cuidados com os olhos">
+            <h2 class="azul">6. Saúde Ocular diante das Telas</h2>
+            <p>Passar horas olhando para o celular ou computador cansa os olhos e pode causar dores de cabeça. Proteja sua visão praticando a <strong>Regra 20-20-20</strong>: a cada 20 minutos olhando para uma tela, olhe para algo a 20 pés (cerca de 6 metros) de distância por pelo menos 20 segundos. Lembre-se também de piscar com frequência para lubrificar os olhos.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="verde">7. Postura e Ergonomia no Dia a Dia</h2>
+            <p>Manter a coluna alinhada evita dores crônicas no futuro. Ao sentar-se para estudar ou trabalhar, mantenha os pés apoiados no chão, os joelhos em um ângulo de 90 graus e o topo da tela do computador na altura dos seus olhos. Evite passar horas curvado sobre o celular.</p>
+        </section>
+
+        <section class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Banho de sol saudável">
+            <h2 class="azul">8. A Importância da Vitamina D (Banho de Sol)</h2>
+            <p>A vitamina D é essencial para a saúde dos ossos e para o sistema imunológico. A melhor forma de obtê-la é através da exposição solar. Tente tomar de 15 a 20 minutos de sol diariamente, de preferência antes das 10h ou após as 16h, sem protetor solar apenas nos braços e pernas para garantir a síntese adequada.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="verde">9. Saúde Auditiva: Cuidado com os Fones</h2>
+            <p>O uso prolongado de fones de ouvido em volumes altos pode causar perda auditiva irreversível. Adote a regra de ouro dos otorrinolaringologistas: **nunca ultrapasse 60% do volume máximo** do seu aparelho e tente não usar os fones por mais de 60 minutos seguidos sem fazer uma pausa.</p>
+        </section>
+
+        <section class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80" alt="Amigos e socialização">
+            <h2 class="azul">10. Conexões Sociais e Bem-Estar Emocional</h2>
+            <p>Nós somos seres sociais. Manter laços fortes com amigos, familiares e comunidade reduz os níveis de ansiedade e depressão. Reserve um tempo na semana para interagir presencialmente com quem você gosta, conversar e dar risadas — isso libera endorfina e fortalece seu bem-estar mental.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="verde">11. Os Perigos da Automedicação</h2>
+            <p>Tomar remédios por conta própria, mesmo analgésicos simples, pode camuflar sintomas de doenças mais graves ou causar reações alérgicas e intoxicações. Em caso de mal-estar frequente, procure orientação médica ou converse com um farmacêutico antes de ingerir qualquer substância.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="azul">12. Calculadora de Hidratação Personalizada</h2>
+            <p>A regra geral de 2 litros de água por dia é boa, mas o consumo ideal varia com o peso de cada corpo (aproximadamente 35ml por quilo). Digite seu peso abaixo para calcular sua meta diária ideal:</p>
+            <div class="calc-container">
+                <input type="number" id="pesoInput" class="calc-input" placeholder="Seu peso (ex: 65)">
+                <button onclick="calcularAgua()" class="calc-btn">Calcular Meta</button>
+            </div>
+            <div id="resultadoAgua" class="calc-resultado"></div>
+        </section>
+
+        <section class="card interativo">
+            <h2 class="azul">🎯 Desafio Interativo: Checklist da Saúde</h2>
+            <p>Clique nos hábitos abaixo que você já praticou hoje para marcar como concluído! Consegue gabaritar todos os dias?</p>
+           
+            <ul class="habit-list">
+                <li class="habit-item" onclick="toggleHabit(this)">Bebi pelo menos 4 copos de água até agora</li>
+                <li class="habit-item" onclick="toggleHabit(this)">Comi pelo menos uma fruta ou vegetal</li>
+                <li class="habit-item" onclick="toggleHabit(this)">Fiz um alongamento ou me exercitei</li>
+                <li class="habit-item" onclick="toggleHabit(this)">Lavei bem as mãos antes das refeições</li>
+                <li class="habit-item" onclick="toggleHabit(this)">Tirei um momento para relaxar a mente</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Meu Blog de Saúde - Criado com carinho por Gabi Alves.</p>
+    </footer>
+
+    <script>
+        function toggleHabit(elemento) {
+            // Liga e desliga a classe "done" ao clicar
+            elemento.classList.toggle('done');
+        }
+
+        function calcularAgua() {
+            const peso = document.getElementById('pesoInput').value;
+            const resultadoDiv = document.getElementById('resultadoAgua');
+           
+            if (peso && peso > 0) {
+                const mlIdeal = peso * 35;
+                const litrosIdeal = (mlIdeal / 1000).toFixed(2);
+                resultadoDiv.style.color = "var(--verde-principal)";
+                resultadoDiv.innerHTML = `💧 Sua meta ideal é beber cerca de <strong>${litrosIdeal} litros</strong> (${mlIdeal}ml) de água por dia!`;
+            } else {
+                resultadoDiv.style.color = "red";
+                resultadoDiv.innerHTML = "Por favor, insira um peso válido.";
+            }
+        }
+    </script>
+</body>
+</html>
